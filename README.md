@@ -1,5 +1,6 @@
-# Whitelist-Anime-Website
-#comsci-rmutp.com/651113/LB9/index.php
+comsci-rmutp.com/651113/LB9/index.php
+
+
 SYSTEM
 
 
