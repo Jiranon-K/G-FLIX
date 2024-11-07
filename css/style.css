@@ -1,0 +1,1836 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
+
+:root {
+    --primary-color: #ff69b4;
+    --primary-color-hover: #ff1493;
+    --primary-color-active: #ff007f;
+    --background-color: #282828;
+    --overlay-color: rgba(0, 0, 0, 0.5);
+    --navbar-bg: rgba(0, 0, 0, 0.6);
+    --scrollbar-thumb: #ff69b4;
+    --scrollbar-thumb-hover: #ff1493;
+    --text-color: #ffffff;
+    --font-family: 'Itim', cursive;
+    --transition-speed: 0.3s;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+html {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: var(--background-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow: auto;
+    color: var(--text-color);
+}
+
+a:link {
+    text-decoration: none;
+}
+
+body>* {
+    flex-shrink: 0;
+}
+
+/* Scrollbar Styles */
+body::-webkit-scrollbar,
+.anime-cards::-webkit-scrollbar,
+.anime-synopsis::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+body::-webkit-scrollbar-thumb,
+.anime-cards::-webkit-scrollbar-thumb,
+.anime-synopsis::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 6px;
+}
+
+body::-webkit-scrollbar-thumb:hover,
+.anime-cards::-webkit-scrollbar-thumb:hover,
+.anime-synopsis::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+}
+
+body {
+    scrollbar-width: none;
+    scrollbar-color: var(--scrollbar-thumb) rgba(0, 0, 0, 0.3);
+}
+
+/* Navbar Styles */
+
+.navbar {
+    width: 100%;
+    /* ให้แน่ใจว่า Navbar กว้างเต็มความกว้างของหน้าเว็บ */
+    background-color: var(--navbar-bg);
+    backdrop-filter: blur(10px);
+    padding: 1rem 2rem;
+    border-bottom: 2px solid rgba(255, 105, 180, 0.5);
+    position: fixed;
+    /* เปลี่ยนจาก relative เป็น fixed */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    /* เพิ่มค่า z-index ให้สูงกว่า Overlay */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+}
+
+body {
+    padding-top: 70px;
+    /* เพิ่ม padding-top เพื่อป้องกันเนื้อหาถูก Navbar ครอบคลุม */
+}
+
+.navbar:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* สไตล์สำหรับปุ่มเข้าสู่ระบบและสมัครสมาชิก */
+.nav-button,
+.signup-button,
+.logout-button {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+    font-family: var(--font-family);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.signup-button {
+    border-color: #ff1493;
+    color: #ff1493;
+}
+
+.nav-button:hover,
+.signup-button:hover,
+.logout-button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.nav-button:active,
+.signup-button:active,
+.logout-button:active {
+    background-color: var(--primary-color-active);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+.signup-button:hover {
+    background-color: #ff1493;
+}
+
+/* สไตล์สำหรับ User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+    gap: 0.5rem;
+    transition: color var(--transition-speed);
+}
+
+.user-info:hover {
+    color: var(--primary-color-hover);
+}
+
+.user-info .username {
+    color: var(--text-color);
+}
+
+.user-info .user-icon {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+.user-info:hover .user-icon {
+    color: var(--primary-color-hover);
+}
+
+/* สไตล์สำหรับไอคอนแก้ไข */
+.user-info .edit-icon {
+    font-size: 1rem;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.user-info .edit-icon:hover {
+    color: var(--primary-color-hover);
+}
+
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: var(--navbar-bg);
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-bottom: 2px solid rgba(255, 105, 180, 0.5);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-button,
+    .signup-button,
+    .logout-button {
+        width: 90%;
+        margin-bottom: 10px;
+        justify-content: center;
+    }
+
+    .user-info {
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .user-info .username {
+        font-size: 1rem;
+    }
+
+    .user-info .user-icon {
+        font-size: 1.5rem;
+    }
+
+    .user-info .edit-icon {
+        font-size: 1rem;
+    }
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    text-shadow: 2px 4px 6px rgba(255, 105, 180, 0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Noto Sans', sans-serif;
+    transition: color var(--transition-speed), text-shadow var(--transition-speed);
+}
+
+.logo:hover {
+    color: var(--primary-color-hover);
+    text-shadow: 4px 6px 10px rgba(255, 105, 180, 0.8);
+}
+
+.hamburger {
+    display: none;
+    font-size: 30px;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.hamburger:hover {
+    color: var(--primary-color-hover);
+}
+
+.hamburger:active {
+    transform: scale(0.95);
+}
+
+/* ปุ่มใน Navbar */
+.nav-button,
+.signup-button {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+    font-family: var(--font-family);
+    margin-left: 1rem;
+}
+
+.signup-button {
+    border-color: #ff1493;
+    color: #ff1493;
+}
+
+.nav-button:hover,
+.signup-button:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.nav-button:active,
+.signup-button:active {
+    background-color: var(--primary-color-active);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+.signup-button:hover {
+    background-color: #ff1493;
+}
+
+/* Video Background Styles */
+video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    /* เพิ่ม pointer-events: none; */
+}
+
+
+video#background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--overlay-color);
+    z-index: 2;
+    pointer-events: none;
+
+}
+
+/* ปุ่มและไอคอน */
+#video-icon,
+#img-icon {
+    position: absolute;
+    z-index: 20;
+    cursor: pointer;
+}
+
+#video-icon {
+    bottom: 2rem;
+    right: 2rem;
+}
+
+#img-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+#video-controls {
+    position: fixed;
+    top: 40px;
+    left: 2rem;
+    z-index: 98;
+    display: flex;
+    gap: 1rem;
+}
+
+#video-controls button,
+#pause-button,
+#mute-button {
+    background-color: var(--primary-color);
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    color: var(--text-color);
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
+    outline: none;
+    margin-top: 64px;
+}
+
+#video-controls button:hover,
+#pause-button:hover,
+#mute-button:hover {
+    background-color: var(--primary-color-hover);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.8);
+}
+
+#video-controls button:active,
+#pause-button:active,
+#mute-button:active {
+    background-color: var(--primary-color-active);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+#video-controls button i {
+    font-size: 20px;
+    margin-right: 0.5rem;
+}
+
+/* Anime Section Styles */
+.anime-section {
+    margin-top: auto;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(15px);
+    padding: 1rem;
+    z-index: 5;
+    transition: max-height var(--transition-speed), overflow var(--transition-speed);
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 90vh;
+}
+
+.anime-cards {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+.anime-cards::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.anime-cards::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 6px;
+}
+
+.anime-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    cursor: pointer;
+}
+
+.anime-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.8);
+}
+
+.anime-card-image {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    transition: transform var(--transition-speed);
+}
+
+.anime-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-speed);
+}
+
+.anime-card:hover .anime-card-image img {
+    transform: scale(1.1);
+}
+
+/* Anime Info Card Styles */
+.anime-info-card {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 4rem 1rem 1rem auto;
+    max-width: 800px;
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    flex-wrap: wrap;
+}
+
+.anime-info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.8);
+}
+
+.anime-image {
+    flex: 1 1 300px;
+    max-width: 300px;
+    overflow: hidden;
+}
+
+.anime-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.anime-details {
+    flex: 2 1 400px;
+    padding: 1.5rem;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-height: 500px;
+}
+
+.anime-title {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.anime-meta {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.anime-meta span {
+    margin-right: 1rem;
+}
+
+.anime-synopsis {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-height: 150px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.anime-synopsis::-webkit-scrollbar {
+    width: 8px;
+}
+
+.anime-synopsis::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.anime-synopsis::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+
+.anime-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+    font-family: var(--font-family);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn i {
+    margin-right: 0.5rem;
+}
+
+.btn:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.btn:active {
+    background-color: var(--primary-color-hover);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+/* Swiper Styles */
+.swiper-container {
+    width: 100%;
+    padding: 2rem 0;
+}
+
+.swiper-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--primary-color);
+    transition: color var(--transition-speed);
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    color: #920b53;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 20px;
+}
+
+.swiper-pagination-bullet {
+    background: var(--primary-color);
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--primary-color-hover);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    /* เพิ่ม overflow เพื่อให้เนื้อหาภายในสามารถเลื่อนได้ถ้าจำเป็น */
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+    background-color: var(--background-color);
+    margin: 5% auto;
+    padding: 1rem;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: slideDown 0.3s ease;
+    overflow: hidden;
+    /* ป้องกันไม่ให้เนื้อหาล้นออกจากโมดอล */
+}
+
+.modal-content iframe {
+    width: 100%;
+    height: 450px;
+    transition: height var(--transition-speed);
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+
+
+
+    .modal-content iframe {
+        height: 250px;
+    }
+}
+
+.close-btn {
+    color: var(--text-color);
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color var(--transition-speed);
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: var(--primary-color);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1440px) {
+
+    .anime-section {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .anime-info-card {
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+}
+
+@media screen and (max-height: 1080px) {
+
+
+    .anime-section {
+        max-height: 85vh;
+    }
+
+    .anime-info-card {
+        max-height: 70vh;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+        /* แก้ไข overflow-x */
+        overflow-y: auto;
+    }
+
+    .hamburger {
+        display: block;
+    }
+
+    .anime-section {
+        max-height: 85vh;
+        overflow-y: auto;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    /* Video Adjustments */
+    video {
+        object-fit: cover;
+        height: 100vh;
+    }
+
+    .modal-content iframe {
+        height: 250px;
+    }
+
+    .anime-info-card {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+
+    .anime-image,
+    .anime-details {
+        max-width: 100%;
+    }
+
+    .anime-image {
+        width: 100%;
+        max-height: none;
+    }
+
+    .anime-details {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .anime-title {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .anime-meta,
+    .anime-synopsis,
+    .anime-studio,
+    .anime-rating,
+    .anime-status {
+        text-align: center;
+        font-size: 1rem;
+    }
+
+    .anime-synopsis {
+        max-height: 200px;
+    }
+
+    .anime-buttons {
+        justify-content: center;
+    }
+
+    .anime-buttons .btn {
+        margin-bottom: 0.5rem;
+    }
+
+    .swiper-container {
+        padding: 1rem 0;
+    }
+
+    .anime-card {
+        width: 150px;
+    }
+
+    .anime-card-image {
+        height: 200px;
+    }
+}
+
+.anime-rating i {
+    color: gold;
+    margin-right: 2px;
+}
+
+.anime-rating {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.form-container {
+    background-color: rgba(40, 40, 40, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 40%;
+    max-width: 600px;
+    margin: auto;
+    z-index: 11;
+    flex: none;
+
+}
+
+.form-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.form-container label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-container input:focus {
+    border-color: var(--primary-color-hover);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.form-container button {
+    width: 100%;
+    /* ปุ่มใช้ความกว้างเต็มพื้นที่ฟอร์ม */
+    padding: 0.8rem;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 30px;
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container .btn.update-button {
+    margin-top: 1rem;
+
+    margin-bottom: 1.5rem;
+
+}
+
+.form-container button:hover {
+    background-color: var(--primary-color-hover);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.form-container button:active {
+    background-color: var(--primary-color-active);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+.form-container p {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.form-container a {
+    color: var(--primary-color);
+    font-weight: bold;
+    transition: color var(--transition-speed);
+}
+
+.form-container a:hover {
+    color: var(--primary-color-hover);
+}
+
+
+@media screen and (max-width: 768px) {
+    .form-container {
+        width: 100%;
+        max-width: 500px;
+        padding: 1.5rem;
+    }
+
+}
+
+/* ข้อความแจ้งเตือน */
+.error-message,
+.success-message {
+    padding: 0.8rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d;
+}
+
+.success-message {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #00e600;
+}
+
+/* Responsive Design สำหรับฟอร์ม */
+@media screen and (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+
+    .form-container h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-container button {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+
+/* สไตล์เพิ่มเติมสำหรับ Dropdown Menu */
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-dropdown .username {
+    margin-right: 0.3rem;
+}
+
+.user-dropdown .user-icon {
+    font-size: 1.5rem;
+}
+
+.user-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: var(--background-color);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    z-index: 100;
+}
+
+.dropdown-content a {
+    color: var(--text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-speed);
+}
+
+.dropdown-content a:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.dropdown-content a i {
+    font-size: 1rem;
+}
+
+/* สไตล์สำหรับหน้า Profile */
+.profile-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(40, 40, 40, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    width: 90%;
+    max-width: 400px;
+    color: var(--text-color);
+    font-family: var(--font-family);
+}
+
+.profile-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.profile-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.profile-container label {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.profile-container input {
+    padding: 0.8rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    font-size: 1rem;
+    transition: border-color var(--transition-speed), background-color var(--transition-speed);
+}
+
+.profile-container input:focus {
+    border-color: var(--primary-color-hover);
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.profile-container button {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background-color var(--transition-speed), box-shadow var(--transition-speed), transform var(--transition-speed);
+}
+
+.profile-container button:hover {
+    background-color: var(--primary-color-hover);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.profile-container button:active {
+    background-color: var(--primary-color-active);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+    transform: translateY(2px);
+}
+
+/* ข้อความแจ้งเตือน */
+.error-message,
+.success-message {
+    padding: 0.8rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.error-message {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff4d4d;
+}
+
+.success-message {
+    background-color: rgba(0, 255, 0, 0.2);
+    color: #00e600;
+}
+
+.whitelist-btn.whitelisted {
+    background-color: #ff007f;
+    color: #fff;
+}
+
+.whitelist-btn.whitelisted i {
+    color: #fff;
+}
+
+/* สไตล์สำหรับหน้า My Whitelist */
+
+/* Container styling */
+.my-whitelist-page .container {
+    z-index: 99;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+
+}
+
+.my-whitelist-page .container h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    font-family: 'Itim', cursive;
+}
+
+.my-whitelist-page .whitelist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.my-whitelist-page .whitelist-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.my-whitelist-page .whitelist-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(255, 105, 180, 0.8);
+}
+
+.my-whitelist-page .whitelist-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.my-whitelist-page .whitelist-card h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    font-family: var(--font-family);
+    min-height: 60px;
+}
+
+.my-whitelist-page .whitelist-rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin: 10px 0;
+}
+
+.my-whitelist-page .whitelist-rating i {
+    color: gold;
+    margin-right: 2px;
+}
+
+.my-whitelist-page .whitelist-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.my-whitelist-page .btn {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.my-whitelist-page .btn:hover {
+    background-color: var(--primary-color-hover);
+    transform: translateY(-3px);
+}
+
+.my-whitelist-page .remove-whitelist-btn {
+    background-color: #dc3545;
+}
+
+.my-whitelist-page .remove-whitelist-btn:hover {
+    background-color: #c82333;
+}
+
+@media screen and (max-width: 768px) {
+
+
+    .my-whitelist-page .whitelist-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+    }
+
+    .my-whitelist-page .whitelist-card {
+        padding: 15px;
+    }
+
+    .my-whitelist-page .whitelist-card h3 {
+        font-size: 1.3rem;
+        min-height: 50px;
+    }
+
+    .my-whitelist-page .whitelist-buttons {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .my-whitelist-page .btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .my-whitelist-page .whitelist-card img {
+        height: 250px;
+    }
+}
+
+
+.btn.whitelist-btn {
+    /* สไตล์ปุ่ม Whitelist */
+    background-color: #ff69b4;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn.whitelist-btn.whitelisted {
+    background-color: #d6336c;
+}
+
+.btn.whitelist-btn:hover {
+    background-color: #c2185b;
+}
+
+.btn.whitelist-btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 10px rgba(214, 51, 108, 0.5);
+}
+
+/* Toast Container */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual Toast */
+.toast {
+    min-width: 250px;
+    max-width: 350px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    font-family: var(--font-family);
+}
+
+/* Show Toast */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Success Toast */
+.toast.success {
+    background-color: #28a745;
+    /* สีเขียวสำหรับความสำเร็จ */
+}
+
+/* Error Toast */
+.toast.error {
+    background-color: #dc3545;
+    /* สีแดงสำหรับข้อผิดพลาด */
+}
+
+/* Toast Message */
+.toast .toast-message {
+    flex: 1;
+}
+
+/* Toast Close Button */
+.toast .toast-close {
+    margin-left: 15px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+/* Delete Confirmation Modal Specific Styles */
+#delete-confirmation-modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#delete-confirmation-modal p {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+#confirm-delete-btn {
+    background-color: #dc3545;
+    /* สีแดงสำหรับการยืนยัน */
+    color: #fff;
+    border: none;
+}
+
+#confirm-delete-btn:hover {
+    background-color: #c82333;
+}
+
+#cancel-delete-btn {
+    background-color: #6c757d;
+    /* สีเทาสำหรับการยกเลิก */
+    color: #fff;
+    border: none;
+}
+
+#cancel-delete-btn:hover {
+    background-color: #5a6268;
+}
+
+
+.form-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 50px;
+    margin-top: 30px;
+    padding: 0 20px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pl .form-page-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.pl .form-page-container .form-container {
+    background-color: rgba(40, 40, 40, 0.95);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    width: 45%;
+    max-width: 600px;
+    margin: 1rem;
+    z-index: 11;
+    flex: 1 1 45%;
+}
+
+@media (max-width: 768px) {
+    .pl .form-page-container .form-container {
+        width: 100%;
+        flex: none;
+        margin: 1rem 0;
+    }
+}
+
+
+/* All Anime Page */
+/* ปรับขนาด container และ z-index */
+.all-anime-page .container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 10;
+    color: #fff;
+}
+
+/* Grid layout สำหรับอนิเมะ */
+.all-anime-page .anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+}
+
+.all-anime-page .container .h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    font-family: 'Itim', cursive;
+}
+
+.all-anime-page .container h1::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-color-hover));
+    bottom: -10px;
+    left: 0;
+    border-radius: 5px;
+}
+
+.card {
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    color: #f0f0f0;
+    box-shadow: -3px -3px 0px 2px rgba(255, 73, 182, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.card img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+    filter: brightness(100%);
+}
+
+.card-content {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: white;
+}
+
+.card h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-shadow: 1px 2px 10px rgba(255, 82, 255, 1);
+}
+
+.card:hover img {
+    opacity: 1;
+}
+
+
+/* Grid layout สำหรับอนิเมะ */
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+/* Responsive design */
+@media screen and (max-width: 1200px) {
+    .anime-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .anime-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .anime-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.all-a {
+
+    /* Modal Styles */
+    .all-a .modal {
+        display: none;
+        position: fixed;
+        z-index: 55;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .modal-content {
+        background-color: transparent;
+        border: none;
+        padding: 0;
+    }
+
+    .modal-content img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close-btn:hover {
+        color: white;
+    }
+}
+
+/* ข้อความแจ้งเตือน */
+.message-container {
+    background-color: transparent;
+    padding: 1.5rem;
+    border-radius: 10px;
+    width: 70%;
+    max-width: 400px;
+    margin: 20px auto;
+    z-index: 11;
+}
+
+/* สไตล์สำหรับข้อความ error */
+.error-message {
+    color: #d9534f;
+    /* เปลี่ยนสีข้อความให้สอดคล้อง */
+
+    border: 1px solid #d9534f;
+    /* เปลี่ยนสีกรอบ */
+    padding: 15px;
+    /* เพิ่ม padding */
+    margin-bottom: 1rem;
+    /* ปรับ margin */
+    border-radius: 10px;
+    /* ปรับให้ขอบมน */
+    font-weight: bold;
+    /* ทำให้ตัวหนา */
+    position: relative;
+    /* ปรับตำแหน่ง */
+}
+
+/* สไตล์สำหรับข้อความ success */
+.success-message {
+    color: #5cb85c;
+    /* เปลี่ยนสีข้อความให้สอดคล้อง */
+    border: 1px solid #5cb85c;
+    /* เปลี่ยนสีกรอบ */
+    padding: 15px;
+    /* เพิ่ม padding */
+    margin-bottom: 1rem;
+    /* ปรับ margin */
+    border-radius: 10px;
+    /* ปรับให้ขอบมน */
+    font-weight: bold;
+    /* ทำให้ตัวหนา */
+    position: relative;
+    /* ปรับตำแหน่ง */
+}
+
+/* สไตล์สำหรับปุ่มปิดข้อความ */
+.close-message {
+    position: absolute;
+    top: 10px;
+    /* ปรับตำแหน่งให้ชัดเจนขึ้น */
+    right: 15px;
+    /* ปรับระยะห่างจากขอบ */
+    cursor: pointer;
+    font-size: 22px;
+    /* เพิ่มขนาด */
+    font-weight: bold;
+    /* ทำให้ตัวหนา */
+    color: #ffffff;
+    /* สีของปุ่มปิด */
+    transition: color var(--transition-speed);
+    /* เพิ่ม transition */
+}
+
+.close-message:hover {
+    color: #ff69b4;
+    /* สีเมื่อ hover */
+}
+
+.profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-image-large {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 20px auto 20px auto;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px;
+    gap: 15px;
+    font-family: var(--font-family);
+}
+
+.pagination .btn {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color var(--transition-speed), color var(--transition-speed), box-shadow var(--transition-speed);
+    display: inline-block;
+    text-align: center;
+}
+
+.pagination .btn:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+.pagination .btn:disabled {
+    background-color: rgba(255, 105, 180, 0.3);
+    color: rgba(255, 255, 255, 0.5);
+    border-color: rgba(255, 105, 180, 0.3);
+    cursor: not-allowed;
+}
+
+.pagination .btn:active {
+    background-color: var(--primary-color-active);
+    transform: translateY(2px);
+    box-shadow: 0 2px 10px rgba(255, 20, 147, 0.5);
+}
+
+.pagination .page-info {
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Style for the genre selection form */
+form {
+    display: flex;
+    
+    justify-content: center;
+    margin-bottom: 20px;
+    font-family: var(--font-family);
+}
+
+/* Label style */
+form label {
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+/* Select box style */
+form select {
+    padding: 0.5rem 2rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 30px;
+    background-color: var(--background-color);
+    color: var(--text-color); 
+    font-size: 1rem;
+    font-family: var(--font-family);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    outline: none;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.2);
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23ff69b4" class="bi bi-caret-down-fill" viewBox="0 0 16 16"%3E%3Cpath d="M7.247 11.14l-4.796-5.481C1.64 5.097 1.892 4.5 2.45 4.5h11.1c.558 0 .81.598.45 1.158l-4.796 5.481c-.287.328-.806.328-1.093 0z"%3E%3C/path%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 16px;
+}
+
+/* Dropdown options styling */
+form select option {
+    background-color: var(--background-color); 
+    color: var(--text-color); 
+}
+
+/* Hover effect */
+form select:hover {
+    border-color: var(--primary-color-hover);
+    box-shadow: 0 6px 15px rgba(255, 105, 180, 0.4);
+}
+
+/* Focused select box */
+form select:focus {
+    border-color: var(--primary-color-active);
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+}
+
+/* Adjust select box on mobile */
+@media (max-width: 768px) {
+    form select {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1.2rem;
+    }
+
+    form label {
+        font-size: 1rem;
+        margin-bottom: 10px;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
