@@ -18,5 +18,8 @@ CHANGE-PASSWORD
 ADD / DELETE WHITE LIST YOUR  ANIME
 
 
+ADMIN PANEL FOR ADD / EDIT / DELETE ANIME AND USER
+
+CHANG USER LEVEL
 
 ![image](https://github.com/user-attachments/assets/ca3f2fb9-d4c3-434e-9591-a3d6ab9b5fd9)
